@@ -11,14 +11,15 @@ from typing import Dict, List, Optional, Tuple
 import fitz  # pymupdf
 
 
-QUESTION_START_RE = re.compile(r"^(?P<num>\d+)\.\s*【(?P<type>单选题|多选题|判断题|填空题)】(?P<rest>.*)$")
-PLAIN_QUESTION_START_RE = re.compile(r"^(?P<num>\d+)\.\s*(?P<rest>.*)$")
-OPTION_RE = re.compile(r"^(?P<label>[A-H])[\.．。]\s*(?P<text>.*)$")
+QUESTION_START_RE = re.compile(r"^(?P<num>\d+)[\.．。]\s*【(?P<type>单选题|多选题|判断题|填空题)】(?P<rest>.*)$")
+PLAIN_QUESTION_START_RE = re.compile(r"^(?P<num>\d+)[\.．。]\s*(?P<rest>.*)$")
+OPTION_RE = re.compile(r"^(?P<label>[A-H])[\.．。、]\s*(?P<text>.*)$")
 ANSWER_RE = re.compile(r"^答案：(?P<ans>.*)$")
 ANSWER_EXPL_RE = re.compile(r"^答案解释：(?P<expl>.*)$")
 DIFF_RE = re.compile(r"^难易度[:：](?P<diff>.*)$")
 PAREN_ANSWER_INLINE_RE = re.compile(r"[（(]\s*([A-H]{1,8})\s*[)）]")
 PAREN_ANSWER_STANDALONE_RE = re.compile(r"^[（(]\s*([A-H]{1,8})\s*[)）]\s*$")
+INLINE_OPTION_MARK_RE = re.compile(r"(?P<label>[A-H])[\.．。、]\s*")
 
 
 @dataclass
@@ -34,9 +35,43 @@ class Question:
 
 
 def normalize_line(line: str) -> str:
+    # Remove common invisible chars that break regex anchors
+    line = line.replace("\ufeff", "").replace("\u200b", "")
     line = line.replace("\u3000", " ")
     line = re.sub(r"\s+", " ", line).strip()
     return line
+
+
+def extract_inline_options(line: str) -> Tuple[str, Optional[Dict[str, str]]]:
+    """Extract options embedded in a single line.
+
+    Examples:
+      "... 根基是。 A、师德建设 B、提高教育质量 C、... D、..."
+      "A.接力跑B.持久战C.耐力赛D.持续跑"
+    """
+    matches = list(INLINE_OPTION_MARK_RE.finditer(line))
+    if not matches:
+        return line, None
+
+    # Heuristic: treat as inline options if there are at least 2 markers,
+    # or if the line starts with an option marker.
+    starts_with_marker = bool(OPTION_RE.match(line))
+    if len(matches) < 2 and not starts_with_marker:
+        return line, None
+
+    prefix = normalize_line(line[: matches[0].start()])
+    opts: Dict[str, str] = {}
+    for idx, m in enumerate(matches):
+        label = m.group("label")
+        start = m.end()
+        end = matches[idx + 1].start() if idx + 1 < len(matches) else len(line)
+        text = normalize_line(line[start:end])
+        if text:
+            opts[label] = text
+
+    if len(opts) >= 2 or (starts_with_marker and len(opts) >= 1):
+        return prefix, opts
+    return line, None
 
 
 def question_type_map(t: str) -> str:
@@ -216,6 +251,22 @@ def parse_pdf(pdf_path: Path) -> List[Question]:
             # If we are already in explanation, keep collecting until difficulty/new question
             if explanation_parts and not OPTION_RE.match(line) and not ANSWER_RE.match(line):
                 explanation_parts.append(line)
+                continue
+
+            # Inline options embedded in the same line as stem
+            prefix, inline_opts = extract_inline_options(line)
+            if inline_opts:
+                if prefix:
+                    if current_option_label and current_option_label in option_parts:
+                        option_parts[current_option_label].append(prefix)
+                    else:
+                        stem_parts.append(prefix)
+
+                for label, text_part in inline_opts.items():
+                    current_option_label = label
+                    option_parts.setdefault(label, [])
+                    if text_part:
+                        option_parts[label].append(text_part)
                 continue
 
             m_opt = OPTION_RE.match(line)

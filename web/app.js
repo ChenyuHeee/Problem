@@ -42,6 +42,33 @@ function sortLetters(s) {
     .join('');
 }
 
+function deriveOptionsFromStem(stem) {
+  const s = String(stem ?? '');
+
+  // Find option markers like A. / A． / A、 (including cases without spaces between options)
+  const markerRe = /([A-H])[\.．、]\s*/g;
+  const matches = [];
+  let m;
+  while ((m = markerRe.exec(s)) !== null) {
+    matches.push({ label: m[1], index: m.index, end: markerRe.lastIndex });
+    if (matches.length > 20) break;
+  }
+  if (matches.length < 2) return null;
+
+  const prefix = s.slice(0, matches[0].index).trim();
+  const options = {};
+  for (let i = 0; i < matches.length; i++) {
+    const start = matches[i].end;
+    const end = i + 1 < matches.length ? matches[i + 1].index : s.length;
+    const text = s.slice(start, end).replace(/\s+/g, ' ').trim();
+    if (text) options[matches[i].label] = text;
+  }
+
+  const labels = Object.keys(options);
+  if (labels.length < 2) return null;
+  return { prefix, options };
+}
+
 function loadState() {
   const tryParse = (raw) => {
     if (!raw) return null;
@@ -179,6 +206,15 @@ function renderQuestion(questionsById, state) {
     return;
   }
 
+  // Frontend fallback: some extracted items may have options embedded in stem.
+  // Derive options on the fly so the user still has selectable answers.
+  let derived = null;
+  if (q.type !== 'blank' && (!q.options || Object.keys(q.options).length === 0)) {
+    derived = deriveOptionsFromStem(q.stem);
+  }
+  const displayStem = derived ? (derived.prefix || q.stem) : q.stem;
+  const displayOptions = derived ? derived.options : q.options;
+
   $('emptyState').hidden = true;
   $('questionArea').hidden = false;
 
@@ -186,7 +222,7 @@ function renderQuestion(questionsById, state) {
     ? `错题 ${getActiveIndex(state) + 1}/${activeIds.length}`
     : `第 ${getActiveIndex(state) + 1}/${activeIds.length} 题`;
   $('qType').textContent = typeLabel(q.type);
-  $('qStem').textContent = q.stem;
+  $('qStem').textContent = displayStem;
 
   const optionsEl = $('options');
   optionsEl.innerHTML = '';
@@ -201,7 +237,7 @@ function renderQuestion(questionsById, state) {
     const inputType = isMulti ? 'checkbox' : 'radio';
     const name = `q_${qid}`;
 
-    const labels = Object.keys(q.options || {});
+    const labels = Object.keys(displayOptions || {});
     labels.sort();
 
     for (const label of labels) {
@@ -219,7 +255,7 @@ function renderQuestion(questionsById, state) {
 
       const t = document.createElement('div');
       t.className = 'text';
-      t.textContent = q.options[label];
+      t.textContent = displayOptions[label];
 
       option.appendChild(input);
       option.appendChild(l);
@@ -233,6 +269,13 @@ function renderQuestion(questionsById, state) {
       for (const input of optionsEl.querySelectorAll('input')) {
         if (selected.includes(input.value)) input.checked = true;
       }
+    }
+    // If still no options, show an empty-state hint for this question.
+    if (labels.length === 0) {
+      const hint = document.createElement('div');
+      hint.className = 'empty';
+      hint.textContent = '该题未解析到可选项（可能是 PDF 排版导致）。可以先点“下一题”，或告诉我题号我再增强解析规则。';
+      optionsEl.appendChild(hint);
     }
   } else {
     if (saved) $('blankText').value = saved.response || '';
