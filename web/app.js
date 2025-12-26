@@ -280,8 +280,6 @@ function renderQuestion(questionsById, state) {
   } else {
     if (saved) $('blankText').value = saved.response || '';
   }
-
-  const submitBtn = $('submitBtn');
   const nextBtn = $('nextBtn');
   const resultEl = $('result');
 
@@ -290,12 +288,10 @@ function renderQuestion(questionsById, state) {
   resultEl.textContent = '';
 
   if (saved) {
-    submitBtn.disabled = true;
     nextBtn.disabled = false;
     lockInputs(true);
     showResult(q, saved, resultEl);
   } else {
-    submitBtn.disabled = false;
     nextBtn.disabled = true;
     lockInputs(false);
   }
@@ -360,6 +356,13 @@ function grade(q, response) {
   return String(response ?? '').trim().toUpperCase() === String(q.answer ?? '').trim().toUpperCase();
 }
 
+function scrollResultIntoView() {
+  setTimeout(() => {
+    const el = $('result');
+    if (el && !el.hidden) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 0);
+}
+
 async function main() {
   const res = await fetch(QUESTIONS_URL, { cache: 'no-store' });
   if (!res.ok) {
@@ -407,35 +410,74 @@ async function main() {
     renderQuestion(questionsById, state);
   }
 
-  $('answerForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-
+  function getCurrentQA() {
     const activeIds = getActiveIds(state);
-    if (activeIds.length === 0) return;
-
+    if (activeIds.length === 0) return null;
     const qid = activeIds[getActiveIndex(state)];
     const q = questionsById[qid];
-    if (!q) return;
+    if (!q) return null;
+    return { qid, q };
+  }
 
+  function submitCurrentAnswer() {
+    const qa = getCurrentQA();
+    if (!qa) return;
+    const { qid, q } = qa;
     if (state.answers?.[qid]) return;
 
     const response = collectResponse(q);
+    // Guard: require at least some input
+    if (q.type === 'blank') {
+      if (!String(response ?? '').trim()) return;
+    } else if (q.type === 'multiple') {
+      if (!Array.isArray(response) || response.length === 0) return;
+    } else {
+      if (!String(response ?? '').trim()) return;
+    }
+
     const correct = grade(q, response);
-
-    state.answers[qid] = {
-      response,
-      correct,
-      ts: Date.now(),
-    };
-
+    state.answers[qid] = { response, correct, ts: Date.now() };
     saveState(state);
     rerender();
+    scrollResultIntoView();
+  }
 
-    // Mobile UX: bring the result into view after submit.
-    setTimeout(() => {
-      const el = $('result');
-      if (el && !el.hidden) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 0);
+  // We keep the form element for semantics, but submission is triggered by option clicks / Enter.
+  $('answerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitCurrentAnswer();
+  });
+
+  // Auto-submit on option selection
+  let multiTimer = null;
+  document.addEventListener('change', (e) => {
+    const target = e.target;
+    if (!(target instanceof HTMLInputElement)) return;
+    if (target.closest('#options') == null) return;
+
+    const qa = getCurrentQA();
+    if (!qa) return;
+    const { qid, q } = qa;
+    if (state.answers?.[qid]) return;
+
+    if (q.type === 'multiple') {
+      // Debounce: allow user to tap multiple options, then auto-submit after a brief pause.
+      if (multiTimer) clearTimeout(multiTimer);
+      multiTimer = setTimeout(() => {
+        multiTimer = null;
+        submitCurrentAnswer();
+      }, 600);
+    } else {
+      submitCurrentAnswer();
+    }
+  });
+
+  // Blank: submit on Enter
+  $('blankText').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      submitCurrentAnswer();
+    }
   });
 
   $('nextBtn').addEventListener('click', () => {
