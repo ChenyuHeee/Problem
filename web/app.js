@@ -237,6 +237,10 @@ function renderQuestion(questionsById, state) {
     const inputType = isMulti ? 'checkbox' : 'radio';
     const name = `q_${qid}`;
 
+    const submitBtn = $('submitBtn');
+    // Only show Submit for multiple-choice questions.
+    const showSubmit = q.type === 'multiple' && !saved;
+    submitBtn.hidden = !showSubmit;
     const labels = Object.keys(displayOptions || {});
     labels.sort();
 
@@ -277,8 +281,15 @@ function renderQuestion(questionsById, state) {
       hint.textContent = '该题未解析到可选项（可能是 PDF 排版导致）。可以先点“下一题”，或告诉我题号我再增强解析规则。';
       optionsEl.appendChild(hint);
     }
+      if (q.type === 'multiple' && !saved) {
+        const selectedCount = optionsEl.querySelectorAll('input:checked').length;
+        submitBtn.disabled = selectedCount === 0;
+      } else {
+        submitBtn.disabled = true;
+      }
   } else {
     if (saved) $('blankText').value = saved.response || '';
+      submitBtn.disabled = true;
   }
   const nextBtn = $('nextBtn');
   const resultEl = $('result');
@@ -449,7 +460,6 @@ async function main() {
   });
 
   // Auto-submit on option selection
-  let multiTimer = null;
   document.addEventListener('change', (e) => {
     const target = e.target;
     if (!(target instanceof HTMLInputElement)) return;
@@ -461,12 +471,12 @@ async function main() {
     if (state.answers?.[qid]) return;
 
     if (q.type === 'multiple') {
-      // Debounce: allow user to tap multiple options, then auto-submit after a brief pause.
-      if (multiTimer) clearTimeout(multiTimer);
-      multiTimer = setTimeout(() => {
-        multiTimer = null;
-        submitCurrentAnswer();
-      }, 600);
+      // Multiple-choice: user selects multiple, then explicitly taps Submit.
+      const submitBtn = $('submitBtn');
+      if (submitBtn) {
+        const selectedCount = document.querySelectorAll('#options input:checked').length;
+        submitBtn.disabled = selectedCount === 0;
+      }
     } else {
       submitCurrentAnswer();
     }
