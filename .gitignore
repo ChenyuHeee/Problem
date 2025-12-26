@@ -1,4 +1,18 @@
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Python venv
 .venv/
+venv/
+
+# Python caches
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
