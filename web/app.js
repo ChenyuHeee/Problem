@@ -430,6 +430,12 @@ async function main() {
 
     saveState(state);
     rerender();
+
+    // Mobile UX: bring the result into view after submit.
+    setTimeout(() => {
+      const el = $('result');
+      if (el && !el.hidden) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
   });
 
   $('nextBtn').addEventListener('click', () => {
@@ -441,6 +447,12 @@ async function main() {
       setActiveIndex(state, idx + 1);
       saveState(state);
       rerender();
+
+      // Mobile UX: reset scroll to top for the next question.
+      setTimeout(() => {
+        const top = document.querySelector('.container');
+        if (top) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 0);
       return;
     }
 
