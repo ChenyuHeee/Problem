@@ -1,5 +1,6 @@
 const QUESTIONS_URL = './questions.json';
 const STORAGE_KEY = 'quizProgress_v1';
+const STORAGE_BACKUP_KEY = 'quizProgress_v1__backup';
 
 function $(id) {
   return document.getElementById(id);
@@ -42,17 +43,45 @@ function sortLetters(s) {
 }
 
 function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+  const tryParse = (raw) => {
     if (!raw) return null;
-    return JSON.parse(raw);
-  } catch {
-    return null;
+    try {
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const primary = tryParse(localStorage.getItem(STORAGE_KEY));
+  if (primary) return primary;
+
+  const backup = tryParse(localStorage.getItem(STORAGE_BACKUP_KEY));
+  if (backup) {
+    // Try to self-heal primary from backup
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(backup));
+    } catch {
+      // ignore
+    }
   }
+  return backup;
 }
 
 function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  // Write primary first; then keep a backup copy for recovery.
+  // This reduces risk of losing progress due to a partially written/corrupted value.
+  const payload = JSON.stringify(state);
+  try {
+    localStorage.setItem(STORAGE_KEY, payload);
+  } catch (e) {
+    console.warn('Failed to write primary progress to localStorage', e);
+  }
+  try {
+    localStorage.setItem(STORAGE_BACKUP_KEY, payload);
+  } catch (e) {
+    console.warn('Failed to write backup progress to localStorage', e);
+  }
 }
 
 function makeInitialState(questionIds) {
