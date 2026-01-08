@@ -142,37 +142,68 @@ def _map_answer_to_letters(answer_raw: str, options: Dict[str, str]) -> str:
     if not options:
         return ans
 
+    def compact(s: str) -> str:
+        # Keep digits/letters/CJK; drop punctuation/whitespace for robust contains matching.
+        s = normalize_line(s).lower()
+        return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", s)
+
     # Normalize option texts
     opt_norm = {k: normalize_line(v) for k, v in options.items()}
     opt_norm_lower = {k: opt_norm[k].lower() for k in opt_norm}
+    opt_compact = {k: compact(opt_norm[k]) for k in opt_norm}
 
     # Split answer by common separators to match multiple items
-    parts = [p.strip() for p in re.split(r"[，,;；]\s*", ans) if p.strip()]
+    # Include Chinese list separator "、" and slashes.
+    parts = [p.strip() for p in re.split(r"[，,;；、/\\|]\s*", ans) if p.strip()]
     candidates = parts if len(parts) > 1 else [ans]
 
-    matched: List[str] = []
-    for part in candidates:
-        part_n = normalize_line(part)
-        part_l = part_n.lower()
+    matched_set: set[str] = set()
 
-        # Exact match first
+    def match_one(token: str) -> List[str]:
+        token_n = normalize_line(token)
+        token_l = token_n.lower()
+        token_c = compact(token_n)
+
+        # Prefer exact matches
         for label, text in opt_norm_lower.items():
-            if part_l == text:
-                matched.append(label)
-                break
-        else:
-            # Contains match (for long phrases)
-            for label, text in opt_norm_lower.items():
-                if text and text in part_l:
-                    matched.append(label)
-            # If nothing, try reverse contains (answer contains option)
-            if not matched:
-                for label, text in opt_norm_lower.items():
-                    if part_l and part_l in text:
-                        matched.append(label)
+            if token_l and token_l == text:
+                return [label]
 
-    if matched:
-        uniq = "".join(sorted(set(matched)))
+        for label, textc in opt_compact.items():
+            if token_c and token_c == textc and token_c:
+                return [label]
+
+        # If token is short (like a number), only allow exact compact match (avoid false positives)
+        if len(token_c) <= 3:
+            return []
+
+        out: List[str] = []
+        # Contains match: option text appears within answer token
+        for label, textc in opt_compact.items():
+            if len(textc) >= 4 and textc in token_c:
+                out.append(label)
+        if out:
+            return out
+
+        # Reverse contains: answer token is contained within option text
+        for label, textc in opt_compact.items():
+            if len(token_c) >= 4 and token_c in textc:
+                out.append(label)
+        return out
+
+    for part in candidates:
+        for label in match_one(part):
+            matched_set.add(label)
+
+    # If not split, also try scanning whole answer for any option texts (helps when answers are concatenated)
+    if not matched_set and len(candidates) == 1:
+        ans_c = compact(ans)
+        for label, textc in opt_compact.items():
+            if len(textc) >= 4 and textc in ans_c:
+                matched_set.add(label)
+
+    if matched_set:
+        uniq = "".join(sorted(matched_set))
         return uniq
 
     return ans
