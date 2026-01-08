@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import shutil
 from pathlib import Path
 from typing import Dict, List
 
@@ -38,10 +39,15 @@ def build_bank(pdf_path: Path, out_dir: Path) -> Dict:
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
+    # Copy original PDF into the deployed web assets so users can download it from GitHub Pages.
+    # Use a stable ASCII filename to avoid URL encoding issues.
+    shutil.copyfile(pdf_path, bank_dir / "source.pdf")
+
     return {
         "id": bank_id,
         "name": display_name,
         "sourceFile": pdf_path.name,
+        "sourcePdfPath": f"banks/{bank_id}/source.pdf",
         "questionsPath": f"banks/{bank_id}/questions.json",
         "count": len(questions),
     }
