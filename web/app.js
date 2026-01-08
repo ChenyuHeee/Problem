@@ -694,6 +694,17 @@ async function main() {
 
       const right = document.createElement('div');
       right.className = 'bank-actions';
+
+      const safeName = String(b.name || b.id || 'questions')
+        .replace(/[\\/:*?"<>|]+/g, '_')
+        .slice(0, 80);
+
+      const dl = document.createElement('a');
+      dl.className = 'btn btn-secondary';
+      dl.href = `./${b.questionsPath}`;
+      dl.download = `${safeName}.questions.json`;
+      dl.textContent = '下载题库';
+
       const btn = document.createElement('button');
       btn.className = 'btn btn-primary';
       btn.type = 'button';
@@ -701,6 +712,8 @@ async function main() {
       btn.addEventListener('click', () => {
         location.hash = `bank=${encodeURIComponent(b.id)}`;
       });
+
+      right.appendChild(dl);
       right.appendChild(btn);
 
       row.appendChild(left);
