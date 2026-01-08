@@ -12,10 +12,12 @@ import fitz  # pymupdf
 
 
 QUESTION_START_RE = re.compile(r"^(?P<num>\d+)[\.．。]\s*【(?P<type>单选题|多选题|判断题|填空题)】(?P<rest>.*)$")
-PLAIN_QUESTION_START_RE = re.compile(r"^(?P<num>\d+)[\.．。]\s*(?P<rest>.*)$")
-OPTION_RE = re.compile(r"^(?P<label>[A-H])[\.．。、]\s*(?P<text>.*)$")
-ANSWER_RE = re.compile(r"^答案：(?P<ans>.*)$")
-ANSWER_EXPL_RE = re.compile(r"^答案解释：(?P<expl>.*)$")
+# Plain numbering: 1. / 1． / 1、
+PLAIN_QUESTION_START_RE = re.compile(r"^(?P<num>\d+)[\.．。、]\s*(?P<rest>.*)$")
+# Options: A. / A． / A、 / A: / A：
+OPTION_RE = re.compile(r"^(?P<label>[A-H])[\.．。、:：]\s*(?P<text>.*)$")
+ANSWER_RE = re.compile(r"^答案[:：]\s*(?P<ans>.*)$")
+ANSWER_EXPL_RE = re.compile(r"^答案解释[:：]\s*(?P<expl>.*)$")
 DIFF_RE = re.compile(r"^难易度[:：](?P<diff>.*)$")
 PAREN_ANSWER_INLINE_RE = re.compile(r"[（(]\s*([A-H]{1,8})\s*[)）]")
 PAREN_ANSWER_STANDALONE_RE = re.compile(r"^[（(]\s*([A-H]{1,8})\s*[)）]\s*$")
@@ -99,6 +101,83 @@ def join_parts(parts: List[str]) -> str:
     return text
 
 
+def _is_letter_answer(ans: str) -> bool:
+    return bool(re.fullmatch(r"[A-H]{1,8}", ans.strip().upper()))
+
+
+def _infer_judge_from_options(options: Dict[str, str]) -> bool:
+    if set(options.keys()) != {"A", "B"}:
+        return False
+    a = normalize_line(options.get("A", ""))
+    b = normalize_line(options.get("B", ""))
+    pairs = {
+        ("对", "错"),
+        ("正确", "错误"),
+        ("是", "否"),
+    }
+    return (a, b) in pairs
+
+
+def _map_answer_to_letters(answer_raw: str, options: Dict[str, str]) -> str:
+    """Try to map an answer text to option letters.
+
+    Supports:
+    - Already-letter answers: "ABCD"
+    - Answer equals an option text: "8" -> label with text "8"
+    - Answer contains multiple option texts separated by commas
+    - Answer line contains letters somewhere: "答案: A ... ,B ..." -> "AB"
+    """
+
+    ans = normalize_line(answer_raw)
+    if not ans:
+        return ans
+
+    # If letters are explicitly present, prefer that.
+    letters = re.findall(r"[A-H]", ans.upper())
+    if letters:
+        uniq = "".join(sorted(set(letters)))
+        if _is_letter_answer(uniq):
+            return uniq
+
+    if not options:
+        return ans
+
+    # Normalize option texts
+    opt_norm = {k: normalize_line(v) for k, v in options.items()}
+    opt_norm_lower = {k: opt_norm[k].lower() for k in opt_norm}
+
+    # Split answer by common separators to match multiple items
+    parts = [p.strip() for p in re.split(r"[，,;；]\s*", ans) if p.strip()]
+    candidates = parts if len(parts) > 1 else [ans]
+
+    matched: List[str] = []
+    for part in candidates:
+        part_n = normalize_line(part)
+        part_l = part_n.lower()
+
+        # Exact match first
+        for label, text in opt_norm_lower.items():
+            if part_l == text:
+                matched.append(label)
+                break
+        else:
+            # Contains match (for long phrases)
+            for label, text in opt_norm_lower.items():
+                if text and text in part_l:
+                    matched.append(label)
+            # If nothing, try reverse contains (answer contains option)
+            if not matched:
+                for label, text in opt_norm_lower.items():
+                    if part_l and part_l in text:
+                        matched.append(label)
+
+    if matched:
+        uniq = "".join(sorted(set(matched)))
+        return uniq
+
+    return ans
+
+
 def parse_pdf(pdf_path: Path) -> List[Question]:
     doc = fitz.open(str(pdf_path))
 
@@ -123,6 +202,15 @@ def parse_pdf(pdf_path: Path) -> List[Question]:
 
         if option_parts:
             current.options = {k: join_parts(v) for k, v in option_parts.items()}
+
+        # Normalize answers for choice/judge questions where the PDF provides answer text.
+        if current.answer and current.options and current.type in {"single", "multiple", "judge"}:
+            mapped = _map_answer_to_letters(current.answer, current.options)
+            if mapped and _is_letter_answer(mapped):
+                current.answer = mapped
+                current.type = "multiple" if len(mapped) > 1 else "single"
+                if _infer_judge_from_options(current.options):
+                    current.type = "judge"
 
         if explanation_parts:
             current.explanation = join_parts(explanation_parts)

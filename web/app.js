@@ -1,6 +1,5 @@
-const QUESTIONS_URL = './questions.json';
-const STORAGE_KEY = 'quizProgress_v1';
-const STORAGE_BACKUP_KEY = 'quizProgress_v1__backup';
+const BANKS_INDEX_URL = './banks/index.json';
+const STORAGE_PREFIX = 'quizProgress_v2:';
 
 function $(id) {
   return document.getElementById(id);
@@ -69,7 +68,12 @@ function deriveOptionsFromStem(stem) {
   return { prefix, options };
 }
 
-function loadState() {
+function storageKeys(bankId) {
+  const base = `${STORAGE_PREFIX}${bankId}`;
+  return { primary: base, backup: `${base}__backup` };
+}
+
+function loadState(bankId) {
   const tryParse = (raw) => {
     if (!raw) return null;
     try {
@@ -80,14 +84,16 @@ function loadState() {
     }
   };
 
-  const primary = tryParse(localStorage.getItem(STORAGE_KEY));
+  const { primary: pKey, backup: bKey } = storageKeys(bankId);
+
+  const primary = tryParse(localStorage.getItem(pKey));
   if (primary) return primary;
 
-  const backup = tryParse(localStorage.getItem(STORAGE_BACKUP_KEY));
+  const backup = tryParse(localStorage.getItem(bKey));
   if (backup) {
     // Try to self-heal primary from backup
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(backup));
+      localStorage.setItem(pKey, JSON.stringify(backup));
     } catch {
       // ignore
     }
@@ -95,17 +101,18 @@ function loadState() {
   return backup;
 }
 
-function saveState(state) {
+function saveState(bankId, state) {
   // Write primary first; then keep a backup copy for recovery.
   // This reduces risk of losing progress due to a partially written/corrupted value.
   const payload = JSON.stringify(state);
+  const { primary: pKey, backup: bKey } = storageKeys(bankId);
   try {
-    localStorage.setItem(STORAGE_KEY, payload);
+    localStorage.setItem(pKey, payload);
   } catch (e) {
     console.warn('Failed to write primary progress to localStorage', e);
   }
   try {
-    localStorage.setItem(STORAGE_BACKUP_KEY, payload);
+    localStorage.setItem(bKey, payload);
   } catch (e) {
     console.warn('Failed to write backup progress to localStorage', e);
   }
@@ -232,12 +239,15 @@ function renderQuestion(questionsById, state) {
 
   const saved = state.answers?.[qid] ?? null;
 
+  const submitBtn = $('submitBtn');
+  submitBtn.hidden = true;
+  submitBtn.disabled = true;
+
   if (q.type !== 'blank') {
     const isMulti = q.type === 'multiple';
     const inputType = isMulti ? 'checkbox' : 'radio';
     const name = `q_${qid}`;
 
-    const submitBtn = $('submitBtn');
     // Only show Submit for multiple-choice questions.
     const showSubmit = q.type === 'multiple' && !saved;
     submitBtn.hidden = !showSubmit;
@@ -281,15 +291,13 @@ function renderQuestion(questionsById, state) {
       hint.textContent = '该题未解析到可选项（可能是 PDF 排版导致）。可以先点“下一题”，或告诉我题号我再增强解析规则。';
       optionsEl.appendChild(hint);
     }
-      if (q.type === 'multiple' && !saved) {
-        const selectedCount = optionsEl.querySelectorAll('input:checked').length;
-        submitBtn.disabled = selectedCount === 0;
-      } else {
-        submitBtn.disabled = true;
-      }
+
+    if (q.type === 'multiple' && !saved) {
+      const selectedCount = optionsEl.querySelectorAll('input:checked').length;
+      submitBtn.disabled = selectedCount === 0;
+    }
   } else {
     if (saved) $('blankText').value = saved.response || '';
-      submitBtn.disabled = true;
   }
   const nextBtn = $('nextBtn');
   const resultEl = $('result');
@@ -375,29 +383,53 @@ function scrollResultIntoView() {
 }
 
 async function main() {
-  const res = await fetch(QUESTIONS_URL, { cache: 'no-store' });
-  if (!res.ok) {
-    renderEmpty('无法加载 questions.json。请用本地静态服务器打开 web/index.html。');
-    return;
+  const homeView = $('homeView');
+  const quizView = $('quizView');
+  const banksList = $('banksList');
+  const homeEmpty = $('homeEmpty');
+
+  const backHomeBtn = $('backHomeBtn');
+  const toggleModeBtn = $('toggleModeBtn');
+  const resetBtn = $('resetBtn');
+
+  function showHome() {
+    homeView.hidden = false;
+    quizView.hidden = true;
+    backHomeBtn.hidden = true;
+    toggleModeBtn.hidden = true;
+    resetBtn.hidden = true;
+    $('meta').textContent = '';
   }
 
-  const data = await res.json();
-  const meta = data.meta || {};
-  const questions = data.questions || [];
-
-  const questionsById = {};
-  const questionIds = [];
-  for (const q of questions) {
-    const id = String(q.id);
-    questionsById[id] = q;
-    questionIds.push(id);
+  function showQuiz() {
+    homeView.hidden = true;
+    quizView.hidden = false;
+    backHomeBtn.hidden = false;
+    toggleModeBtn.hidden = false;
+    resetBtn.hidden = false;
   }
 
-  let state = loadState();
-  if (!state || state.version !== 1 || !Array.isArray(state.questionIds)) {
-    state = makeInitialState(questionIds);
-    saveState(state);
-  } else {
+  function parseHash() {
+    const raw = (location.hash || '').replace(/^#/, '');
+    const params = new URLSearchParams(raw);
+    const bank = params.get('bank');
+    return { bankId: bank };
+  }
+
+  async function fetchBanksIndex() {
+    const res = await fetch(BANKS_INDEX_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to load banks index');
+    return await res.json();
+  }
+
+  function ensureStateFor(bankId, questionIds) {
+    let state = loadState(bankId);
+    if (!state || state.version !== 1 || !Array.isArray(state.questionIds)) {
+      state = makeInitialState(questionIds);
+      saveState(bankId, state);
+      return state;
+    }
+
     // If question set changed, keep existing answers where possible
     const prev = new Set(state.questionIds);
     const next = new Set(questionIds);
@@ -412,11 +444,90 @@ async function main() {
       state.currentIndexAll = 0;
       state.currentIndexWrong = 0;
       state.mode = 'all';
-      saveState(state);
+      saveState(bankId, state);
+    }
+
+    return state;
+  }
+
+  function renderHomeList(banks) {
+    banksList.innerHTML = '';
+    if (!banks || banks.length === 0) {
+      homeEmpty.hidden = false;
+      homeEmpty.textContent = '没有找到题库文件。请把题库 PDF 放进 bank/ 并运行构建脚本生成 web/banks/index.json。';
+      return;
+    }
+    homeEmpty.hidden = true;
+
+    for (const b of banks) {
+      const state = loadState(b.id) || makeInitialState([]);
+      const total = Number(b.count || state.questionIds?.length || 0);
+      const stats = computeStats(state);
+      const pct = total ? Math.round((stats.answered / total) * 100) : 0;
+
+      const row = document.createElement('div');
+      row.className = 'bank';
+
+      const left = document.createElement('div');
+      const name = document.createElement('div');
+      name.className = 'bank-name';
+      name.textContent = b.name;
+
+      const meta = document.createElement('div');
+      meta.className = 'bank-meta';
+      meta.textContent = `进度：${stats.answered}/${total}（正确 ${stats.correct}，错误 ${stats.wrong}）`;
+
+      const prog = document.createElement('div');
+      prog.className = 'bank-progress';
+      const bar = document.createElement('div');
+      bar.className = 'bank-bar';
+      const fill = document.createElement('div');
+      fill.style.width = `${pct}%`;
+      bar.appendChild(fill);
+      prog.appendChild(bar);
+
+      left.appendChild(name);
+      left.appendChild(meta);
+      left.appendChild(prog);
+
+      const right = document.createElement('div');
+      right.className = 'bank-actions';
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-primary';
+      btn.type = 'button';
+      btn.textContent = stats.answered > 0 ? '继续' : '开始';
+      btn.addEventListener('click', () => {
+        location.hash = `bank=${encodeURIComponent(b.id)}`;
+      });
+      right.appendChild(btn);
+
+      row.appendChild(left);
+      row.appendChild(right);
+      banksList.appendChild(row);
     }
   }
 
-  function rerender() {
+  let banksIndex = null;
+  try {
+    banksIndex = await fetchBanksIndex();
+  } catch (e) {
+    console.error(e);
+    showHome();
+    homeEmpty.hidden = false;
+    homeEmpty.textContent = '无法加载题库索引（web/banks/index.json）。请先生成并提交到 GitHub Pages。';
+    return;
+  }
+
+  const banks = banksIndex.banks || [];
+
+  // Quiz runtime vars (for current bank)
+  let currentBank = null;
+  let meta = {};
+  let questionsById = {};
+  let questionIds = [];
+  let state = null;
+
+  function rerenderQuiz() {
     renderProgress(meta, state);
     renderQuestion(questionsById, state);
   }
@@ -448,8 +559,8 @@ async function main() {
 
     const correct = grade(q, response);
     state.answers[qid] = { response, correct, ts: Date.now() };
-    saveState(state);
-    rerender();
+    saveState(currentBank.id, state);
+    rerenderQuiz();
     scrollResultIntoView();
   }
 
@@ -497,8 +608,8 @@ async function main() {
     const idx = getActiveIndex(state);
     if (idx + 1 < activeIds.length) {
       setActiveIndex(state, idx + 1);
-      saveState(state);
-      rerender();
+      saveState(currentBank.id, state);
+      rerenderQuiz();
 
       // Mobile UX: reset scroll to top for the next question.
       setTimeout(() => {
@@ -529,19 +640,75 @@ async function main() {
       setMode(state, 'wrong');
       state.currentIndexWrong = 0;
     }
-    saveState(state);
-    rerender();
+    saveState(currentBank.id, state);
+    rerenderQuiz();
   });
 
   $('resetBtn').addEventListener('click', () => {
     const ok = confirm('确定要清空全部答题记录吗？');
     if (!ok) return;
     state = makeInitialState(questionIds);
-    saveState(state);
-    rerender();
+    saveState(currentBank.id, state);
+    rerenderQuiz();
   });
 
-  rerender();
+  backHomeBtn.addEventListener('click', () => {
+    location.hash = '';
+  });
+
+  async function enterBank(bankId) {
+    const bank = banks.find((b) => b.id === bankId);
+    if (!bank) {
+      showHome();
+      renderHomeList(banks);
+      return;
+    }
+
+    showQuiz();
+    currentBank = bank;
+    $('meta').textContent = `题库：${bank.name}`;
+
+    const res = await fetch(`./${bank.questionsPath}`, { cache: 'no-store' });
+    if (!res.ok) {
+      renderEmpty('无法加载该题库的 questions.json。');
+      return;
+    }
+
+    const data = await res.json();
+    meta = data.meta || {};
+    const questions = data.questions || [];
+
+    questionsById = {};
+    questionIds = [];
+    for (const q of questions) {
+      const id = String(q.id);
+      questionsById[id] = q;
+      questionIds.push(id);
+    }
+
+    state = ensureStateFor(bank.id, questionIds);
+    rerenderQuiz();
+  }
+
+  function handleRoute() {
+    const { bankId } = parseHash();
+    if (!bankId) {
+      showHome();
+      renderHomeList(banks);
+      return;
+    }
+    enterBank(bankId).catch((e) => {
+      console.error(e);
+      showHome();
+      renderHomeList(banks);
+    });
+  }
+
+  window.addEventListener('hashchange', () => {
+    handleRoute();
+  });
+
+  handleRoute();
 }
 
 main().catch((err) => {

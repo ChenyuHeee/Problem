@@ -14,11 +14,13 @@
 
 ## 更新题库（从 PDF 重新提取）
 
+本项目支持多个题库：把 PDF 放到 `bank/`，然后生成 `web/banks/` 下的题库索引与数据文件。
+
 ```bash
-/Users/hechenyu/projects/Problem/.venv/bin/python scripts/extract_questions.py \
-  --pdf "bank/求是学院分党校入党积极分子结业考试学习资料（2025.12）.pdf" \
-  --out web/questions.json
+/Users/hechenyu/projects/Problem/.venv/bin/python scripts/build_banks.py --bankDir bank --outDir web/banks
 ```
+
+生成后把改动提交并推送，GitHub Pages 会自动更新。
 
 ## 部署到 GitHub Pages
 

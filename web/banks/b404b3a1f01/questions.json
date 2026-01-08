@@ -1,0 +1,1641 @@
+{
+  "meta": {
+    "bankId": "b404b3a1f01",
+    "bankName": "经济法理论与实务题库",
+    "source": "经济法理论与实务题库.pdf",
+    "count": 92
+  },
+  "questions": [
+    {
+      "id": "p1-1",
+      "type": "single",
+      "stem": "《民法总则》规定，（ ）周岁以上的未成年 人为限制民事行为能力人。",
+      "options": {
+        "A": "7",
+        "B": "8",
+        "C": "9",
+        "D": "10"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 1
+      }
+    },
+    {
+      "id": "p1-2",
+      "type": "single",
+      "stem": "违法代理由此而产生的法律责任，应该由（ ） 承担。",
+      "options": {
+        "A": "代理人",
+        "B": "被代理人",
+        "C": "相对人",
+        "D": "代理人与被代理人承担连带责任"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 2
+      }
+    },
+    {
+      "id": "p1-3",
+      "type": "single",
+      "stem": "下列关于转委托的叙述，不正确的是（ ）。 的利益需要转委托的，也需要取得被代理人的同意， 否则无效",
+      "options": {
+        "A": "转委托是受托人把本应由自己亲自处理的委托事 务交给他人处理的行为",
+        "B": "代理人需要转委托第三人代理的，应当取得被代 理人的同意或者追认",
+        "C": "转委托代理未经被代理人同意或者追认的，代理 人应当对转委托的第三人的行为承担责任",
+        "D": "即使在紧急情况下代理人为了维护被代理人的利 益需要转委托的，也需要取得被代理人的同意，否 则无效"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 3
+      }
+    },
+    {
+      "id": "p1-4",
+      "type": "single",
+      "stem": "下列关于共有的表述，不正确的是（ ）。 上共有人通过",
+      "options": {
+        "A": "按份共有人按照各自的份额对共有物享有所有权",
+        "B": "共有人不可以随意处置共有物",
+        "C": "共同共有人要处置共有物，必须二分之一以上共 有人通过",
+        "D": "按份共有人的份额出让需符合法律规定"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 4
+      }
+    },
+    {
+      "id": "p1-5",
+      "type": "multiple",
+      "stem": "某婴儿出生前，其父亲车祸去世，爷爷奶奶健在。 现婴儿出生时发现是个死胎，那么，原先为该婴儿 保留的遗产份额，下列有权继承的有（ ）？",
+      "options": {
+        "A": "婴儿的母亲",
+        "B": "婴儿的爷爷",
+        "C": "婴儿的奶奶",
+        "D": "国家"
+      },
+      "answer": "ABC",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 5
+      }
+    },
+    {
+      "id": "p1-6",
+      "type": "single",
+      "stem": "关于代理的法律责任，正确的有（ ）。 理人无权代理而不表示反对，则代理有效,B 违法代 理，代理人与被代理人承担连带责任,D 代理人与第 三人恶意串通损害被代理人利益，代理人与第三人 承担连带责任,转委托需取得被代理人同意，否则无 效，但紧急情况下代理人为了维护被代理人利益的 不在此限",
+      "options": {
+        "A": "被代理人对无权代理行为予以追认或明知代理人 无权代理而不表示反对，则代理有效",
+        "B": "违法代理，代理人与被代理人承担连带责任",
+        "C": "以盖了公司合同专用章的空白合同书与他人签 约，因未取得公司同意而无效",
+        "D": "代理人与第三人恶意串通损害被代理人利益，代 理人与第三人承担连带责任",
+        "E": "转委托需取得被代理人同意，否则无效，但紧急 情况下代理人为了维护被代理人利益的不在此限"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 6
+      }
+    },
+    {
+      "id": "p1-7",
+      "type": "multiple",
+      "stem": "下列属于法人所具有的特点的有（ ）。 有一定的资金,能够独立承担民事责任",
+      "options": {
+        "A": "依法成立",
+        "B": "有自己的名称、组织机构和场所",
+        "C": "有一定的资金",
+        "D": "能够独立承担民事责任"
+      },
+      "answer": "AB",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 7
+      }
+    },
+    {
+      "id": "p1-8",
+      "type": "judge",
+      "stem": "十六周岁以上十八周岁以下的未成年人都属于限 制行为能力人。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 8
+      }
+    },
+    {
+      "id": "p1-9",
+      "type": "judge",
+      "stem": "宣告死亡后被宣告死亡人又出现的，其子女若被 他人收养的，收养关系自然消灭。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 9
+      }
+    },
+    {
+      "id": "p1-10",
+      "type": "single",
+      "stem": "分公司和子公司一样，都不是法人。 第二章 根据最高人民法院关于适用《中华人民共和国合 同法》若干问题的解释(二)第十九条规定：“明显 不合理的低价”，人民法院应当以交易当地一般 经营者的判断，并参考交易当时交易地的物价部 门指导价或者市场交易价，结合其他相关因素综 合考虑予以确认。转让价格达不到交易时交易地 的指导价或者市场交易价（ ）的，一般可以视 为明显不合理的低价。",
+      "options": {
+        "A": "对 50%",
+        "B": "错 60%",
+        "C": "70%",
+        "D": "80%"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 1,
+        "number": 10
+      }
+    },
+    {
+      "id": "p2-2",
+      "type": "single",
+      "stem": "根据最高法院的2015 年的司法解释，目前民间 借贷受法律保护的最高利率可达（ ）。",
+      "options": {
+        "A": "同期银行存款基准利率的四倍",
+        "B": "同期银行贷款基准利率的四倍",
+        "C": "24%",
+        "D": "36%"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 2
+      }
+    },
+    {
+      "id": "p2-3",
+      "type": "single",
+      "stem": "以下不属于合同可撤销的法定情形的是（ ）。",
+      "options": {
+        "A": "重大误解",
+        "B": "订立合同时显失公平",
+        "C": "欺诈、胁迫、乘人之危",
+        "D": "违法的"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 3
+      }
+    },
+    {
+      "id": "p2-4",
+      "type": "single",
+      "stem": "下列不属于对要约内容的实质性变更的是（ ）。",
+      "options": {
+        "A": "数量和质量",
+        "B": "价格或报酬",
+        "C": "简易包装",
+        "D": "违约责任"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 4
+      }
+    },
+    {
+      "id": "p2-5",
+      "type": "single",
+      "stem": "下列一般来说属于要约邀请的有（ ）。 书、拍卖公告,PLEASE OFFER CHINESE BLACK TEA A GRADE MAY SHIPMENT 50MT CIF NEW YORK,寄送的 价目表,CAN SUPPLY NORTHEAST SOYA BEAN PLEASE BID",
+      "options": {
+        "A": "一般情况下的商业广告、招标公告、招股说明书、 拍卖公告",
+        "B": "PLEASE OFFER CHINESE BLACK TEA A GRADE MAY SHIPMENT 50MT CIF NEW YORK",
+        "C": "寄送的价目表",
+        "D": "CAN SUPPLY NORTHEAST SOYA BEAN PLEASE BID",
+        "E": "悬赏广告"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 5
+      }
+    },
+    {
+      "id": "p2-6",
+      "type": "single",
+      "stem": "关于合同违约责任中常见的“三金”，正确的表述 有（ ）？ 于实际损失可申请增加,违约金过分高于实际损失可 申请减少",
+      "options": {
+        "A": "违约金过分高于实际损失以超过实际损失50%以 上作为认定标准",
+        "B": "定金是一种担保方式，订金则不是",
+        "C": "违约金低于实际损失可申请增加",
+        "D": "违约金过分高于实际损失可申请减少",
+        "E": "赔偿金以违约方可预见的损失为限，违约方无法预 见的损失无需赔偿"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 6
+      }
+    },
+    {
+      "id": "p2-7",
+      "type": "single",
+      "stem": "下列属于附条件的选项有（ ）。 国足球队十五年内进入世界杯八强，本合同生效”, 与房东老太太约定租期为“房东太太儿子结婚时，本 租赁合同到期”,借贷双方约定“塑料厂开工后第二个 月还钱”",
+      "options": {
+        "A": "“明年6 月1 日×国开始大选时本合同生效”",
+        "B": "“中国足球队十五年内进入世界杯八强，本合同生 效”",
+        "C": "与房东老太太约定租期为“房东太太儿子结婚时， 本租赁合同到期”",
+        "D": "“杭州下次下雨时，本合同终止”",
+        "E": "借贷双方约定“塑料厂开工后第二个月还钱”"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 7
+      }
+    },
+    {
+      "id": "p2-8",
+      "type": "judge",
+      "stem": "商业广告都属于要约邀请，不能成为有效要约。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 8
+      }
+    },
+    {
+      "id": "p2-9",
+      "type": "judge",
+      "stem": "合同成立则为合同生效。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 2,
+        "number": 9
+      }
+    },
+    {
+      "id": "p3-10",
+      "type": "judge",
+      "stem": "因限制行为能力人订立的效力待定合同在被追 认前是有效的。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 10
+      }
+    },
+    {
+      "id": "p3-11",
+      "type": "single",
+      "stem": "向出租车招手打的的行为应该视为要约。 第三章 普通合伙企业对其债务应先以全部财产进行清 偿。合伙企业财产不足清偿到期债务的，各普通 合伙人应当承担( )。",
+      "options": {
+        "A": "对 无限责任",
+        "B": "错 有限责任",
+        "C": "无限连带责任",
+        "D": "剩余债务责任"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 11
+      }
+    },
+    {
+      "id": "p3-2",
+      "type": "single",
+      "stem": "普通合伙人或合伙事务执行人在正常范围内进行 经营活动，其行为对( )具有约束力。",
+      "options": {
+        "A": "合伙企业",
+        "B": "有限合伙人",
+        "C": "隐名合伙人",
+        "D": "自己"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 2
+      }
+    },
+    {
+      "id": "p3-3",
+      "type": "single",
+      "stem": "普通合伙人对普通合伙企业债务承担无限连带责 任。当普通合伙企业的财产不足以清偿其债务时， 普通合伙人应当以( )承担该不足部分的清偿责任。",
+      "options": {
+        "A": "家族财产",
+        "B": "个人财产",
+        "C": "注册资本",
+        "D": "投资总额"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 3
+      }
+    },
+    {
+      "id": "p3-4",
+      "type": "single",
+      "stem": "李某为一有限合伙企业中的有限合伙人，李某的 下列行为中，不符合法律规定的是（ ）。",
+      "options": {
+        "A": "对企业的经营管理权提出建议",
+        "B": "对外代表合伙企业",
+        "C": "参与讨论普通合伙人入伙",
+        "D": "对企业事务享有知情权和监督权"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 4
+      }
+    },
+    {
+      "id": "p3-5",
+      "type": "single",
+      "stem": "特殊的普通合伙企业中，一个合伙人或几个合伙 人在执业活动中因故意或者重大过失造成合伙企业 债务的，应当承担无限责任或者无限连带责任，其 他合伙人（ ）。",
+      "options": {
+        "A": "承担无限连带责任",
+        "B": "以注册资本为限承担责任",
+        "C": "以投资总额承担责任",
+        "D": "以其在合伙企业中的财产份额为限承担责任"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 5
+      }
+    },
+    {
+      "id": "p3-6",
+      "type": "multiple",
+      "stem": "下列关于合伙企业的表述，正确的有（ ）。",
+      "options": {
+        "A": "有限合伙企业由普通合伙人和有限合伙人组成",
+        "B": "普通合伙人对合伙企业债务承担无限连带责任，有 限合伙人只承担有限责任",
+        "C": "当有限合伙企业只剩下普通合伙人时，应当转为普 通合伙企业",
+        "D": "当有限合伙企业只剩下有限合伙人时，该合伙企业 应当解散"
+      },
+      "answer": "ABCD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 6
+      }
+    },
+    {
+      "id": "p3-7",
+      "type": "multiple",
+      "stem": "根据普通合伙企业法律制度的规定，下列各项中， 须经全体合伙人一致同意的有( )。",
+      "options": {
+        "A": "合伙人以劳务作为出资",
+        "B": "合伙人向合伙人以外的人转让其在合伙企业的部 分财产份额",
+        "C": "合伙人以其在合伙企业中的财产份额出质",
+        "D": "合伙企业的执行人以合伙企业的名义为他人提供 担保"
+      },
+      "answer": "ABCD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 7
+      }
+    },
+    {
+      "id": "p3-8",
+      "type": "judge",
+      "stem": "普通合伙企业新入伙的合伙人对合伙企业债务不 承担连带责任。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 8
+      }
+    },
+    {
+      "id": "p3-9",
+      "type": "judge",
+      "stem": "退伙的普通合伙人对退伙前的企业债务要承担无 限责任。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 3,
+        "number": 9
+      }
+    },
+    {
+      "id": "p4-10",
+      "type": "judge",
+      "stem": "限合伙人以出资额为限对企业债务承担责任， 不执行合伙企业事务，不对外代表合伙企业。 第四章",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 10
+      }
+    },
+    {
+      "id": "p4-1",
+      "type": "single",
+      "stem": "对赌协议的投资人常用的获得补偿或回报形式有 多种，下列哪一种除外（ ）。",
+      "options": {
+        "A": "现金补偿",
+        "B": "股权补偿",
+        "C": "融资方溢价回购",
+        "D": "股权互换"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 1
+      }
+    },
+    {
+      "id": "p4-2",
+      "type": "single",
+      "stem": "根据我国《公司法》的规定，下列人员中，可以 担任公司监事的是（ ）。",
+      "options": {
+        "A": "公司董事长王某",
+        "B": "公司股东李某",
+        "C": "公司财务负责人蔡某",
+        "D": "公司经理徐某"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 2
+      }
+    },
+    {
+      "id": "p4-3",
+      "type": "single",
+      "stem": "关于公司资金出借，下列建议表述不正确的是 （ ）。",
+      "options": {
+        "A": "要签合同",
+        "B": "要约定利息，并实际收取，留有凭证",
+        "C": "要经过过半数股东或者董事的书面同意，在程序上 符合资金出借的程序要求",
+        "D": "要经过会计师事务所的审核"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 3
+      }
+    },
+    {
+      "id": "p4-4",
+      "type": "single",
+      "stem": "认缴制设立的有限责任公司，股东对公司债务承 担的责任（ ）。",
+      "options": {
+        "A": "以实际出资为限",
+        "B": "以全部注册资本为限",
+        "C": "以认缴的额度为限",
+        "D": "以协议约定为限"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 4
+      }
+    },
+    {
+      "id": "p4-5",
+      "type": "multiple",
+      "stem": "下列属于公司的法律特征的有（ ）。",
+      "options": {
+        "A": "依法设立",
+        "B": "以营利为目的",
+        "C": "股东对公司债务承担有限责任",
+        "D": "具有独立的法人资格"
+      },
+      "answer": "ABCD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 5
+      }
+    },
+    {
+      "id": "p4-6",
+      "type": "multiple",
+      "stem": "关于有限公司股权转让的表述，正确的有（ ）。",
+      "options": {
+        "A": "有限责任公司的股东之间可以相互转让其全部或 者部分股权",
+        "B": "股东向股东以外的人转让股权，无需经其他股东数 同意",
+        "C": "股东应就其股权转让事项书面通知其他股东征求 同意，其他股东自接到书面通知之日起满三十日未 答复的，视为同意转让",
+        "D": "其他股东半数以上不同意转让的，不同意的股东应 当购买该转让的股权，不购买的，视为同意转让",
+        "E": "经股东同意转让的股权，在同等条件下，其他股东 有优先购买权"
+      },
+      "answer": "ACDE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 6
+      }
+    },
+    {
+      "id": "p4-7",
+      "type": "single",
+      "stem": "下列表述正确的有：（ ） 公司的有限责任制具有诸多优点，但这一特点在实 践中也被利用来逃避债务。",
+      "options": {
+        "A": "目前公司出资可以全部用无形资产出资 对",
+        "B": "隐名股东不具有利润分配权 错",
+        "C": "有限责任公司注册资本已经从原先的实缴制改为 授权制",
+        "D": "有限责任公司设立目前并无注册资本的限制，注册 资本1 元钱也可以成立",
+        "E": "公司设立出资可不必经过会计师验资"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 7
+      }
+    },
+    {
+      "id": "p4-9",
+      "type": "judge",
+      "stem": "认缴制设立一个有限责任公司在风险可控的前提 下注册资本越高对公司越有利。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 9
+      }
+    },
+    {
+      "id": "p4-10",
+      "type": "single",
+      "stem": "对赌协议并非赌博，其实质是期权的设计。 第五章 个体经营户王小小从事理发服务业，使用“一剪 没”作为未注册商标长期使用，享有较高声誉。 王小小通过签订书面合同许可其同一城区张薇 薇使用“一剪没”商标从事理发业务。后张薇薇以 自己的名义申请“一剪没”商标使用于理发业务 并获得注册。下列哪一说法是正确的？（ ） （2011 年司考题）",
+      "options": {
+        "A": "对 该商标使用许可合同自双方签字之日起生效",
+        "B": "错 该商标使用许可合同应当报商标局备案",
+        "C": "王小小有权自“一剪没”注册之日起5 年内请求商标 评审委员会撤销该注册商标",
+        "D": "张薇薇无权申请“一剪没”商标注册，因为王小小使 用在先"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 4,
+        "number": 10
+      }
+    },
+    {
+      "id": "p5-2",
+      "type": "single",
+      "stem": "发明专利和实用新型专利的有效期分别是（ ）。",
+      "options": {
+        "A": "十年 十年",
+        "B": "二十年 二十年",
+        "C": "二十年 十年",
+        "D": "十年 二十年"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 2
+      }
+    },
+    {
+      "id": "p5-3",
+      "type": "single",
+      "stem": "下列可授予专利权的情况有（ ）。",
+      "options": {
+        "A": "违反国家法律、社会公德或者侵害公共利益的发明 创造",
+        "B": "科学发现",
+        "C": "疾病的诊断和治疗方法",
+        "D": "动物和植物品种的生产方法",
+        "E": "用原子核变换方法获得的物质"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 3
+      }
+    },
+    {
+      "id": "p5-4",
+      "type": "single",
+      "stem": "下列关于职务发明创造的叙述不正确的是（ ）。",
+      "options": {
+        "A": "专利申请权属于单位",
+        "B": "专利申请权及专利权均属于设计人员",
+        "C": "单位要对发明设计人员予以奖励",
+        "D": "主要利用本单位物质技术条件及完成本单位的任 务完成的发明创造属于职务发明创造"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 4
+      }
+    },
+    {
+      "id": "p5-5",
+      "type": "multiple",
+      "stem": "下列标记中不可以作为商标注册的有（ ）。",
+      "options": {
+        "A": "“米”酒",
+        "B": "“强壮”健身器",
+        "C": "“金华”烤肉片",
+        "D": "“幸福”奶糖",
+        "E": "“777”餐椅"
+      },
+      "answer": "ABCE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 5
+      }
+    },
+    {
+      "id": "p5-6",
+      "type": "multiple",
+      "stem": "根据专利法的规定，下列各项关于外观设计专利 的表述中，正确的有（ ）。",
+      "options": {
+        "A": "外观设计专利权的保护期为10 年",
+        "B": "外观设计专利申请不进行实质审查",
+        "C": "外观设计专利权不可以被强制许可",
+        "D": "外观设计专利有效期限自获得专利之日起计算"
+      },
+      "answer": "ABC",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 6
+      }
+    },
+    {
+      "id": "p5-7",
+      "type": "multiple",
+      "stem": "下列属于知识产权的客体的有（ ）。",
+      "options": {
+        "A": "作品",
+        "B": "发明、实用新型、外观设计",
+        "C": "商标",
+        "D": "地理标志",
+        "E": "商业秘密",
+        "F": "集成电路布图设计",
+        "G": "植物新品种"
+      },
+      "answer": "ABCDEFG",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 7
+      }
+    },
+    {
+      "id": "p5-8",
+      "type": "judge",
+      "stem": "知识产权法律体系主要是为了保护产权人的利 益。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 8
+      }
+    },
+    {
+      "id": "p5-9",
+      "type": "judge",
+      "stem": "“三五”牌啤酒和“中国”牌手机都不符合商标注册 的规定，无法获得注册。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 9
+      }
+    },
+    {
+      "id": "p5-10",
+      "type": "judge",
+      "stem": "我国专利的客体主要包括发明、实用新型、外 观设计和计算机软件。 第六章",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 10
+      }
+    },
+    {
+      "id": "p5-1",
+      "type": "single",
+      "stem": "《反不正当竞争法》规定有奖销售最高奖不得超 过人民币（ ）。",
+      "options": {
+        "A": "5000 元",
+        "B": "1 万元",
+        "C": "3 万元",
+        "D": "5 万元"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 5,
+        "number": 1
+      }
+    },
+    {
+      "id": "p6-2",
+      "type": "single",
+      "stem": "根据新修订的《反不正当竞争法》的规定，刷单 炒信最高可罚（ ）元。",
+      "options": {
+        "A": "20 万",
+        "B": "50 万",
+        "C": "100 万",
+        "D": "200 万"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 2
+      }
+    },
+    {
+      "id": "p6-3",
+      "type": "single",
+      "stem": "《消费者权益保护法》中实行举证责任倒置，需 消费者自接受商品或者服务之日起（ ）内发现瑕疵， 发生争议的，由经营者承担有关瑕疵的举证责任。",
+      "options": {
+        "A": "三个月",
+        "B": "六个月",
+        "C": "一年",
+        "D": "两年"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 3
+      }
+    },
+    {
+      "id": "p6-4",
+      "type": "single",
+      "stem": "《消费者权益保护法》规定消费者的“反悔权”， 以下表述不正确的是（ ）。",
+      "options": {
+        "A": "仅限于网络、电视等远程购物方式",
+        "B": "仅限于服装、电子产品等日常用品",
+        "C": "仅以七日为限",
+        "D": "不适用于实体店购物"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 4
+      }
+    },
+    {
+      "id": "p6-5",
+      "type": "multiple",
+      "stem": "下列关于2014 年3 月15 日实施的《消费者权益 保护法》的表述，正确的有（ ）。",
+      "options": {
+        "A": "对所有商品都实行举证责任倒置",
+        "B": "赋予网络等远程购物的消费者七天的反悔权",
+        "C": "对网购平台责任作了定位",
+        "D": "经营者欺诈的赔偿责任为退一赔三",
+        "E": "消协可提公益诉讼"
+      },
+      "answer": "BCDE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 5
+      }
+    },
+    {
+      "id": "p6-6",
+      "type": "multiple",
+      "stem": "下列属于商业秘密的特征的是（ ）。",
+      "options": {
+        "A": "秘密性",
+        "B": "保密性",
+        "C": "价值性",
+        "D": "实用性"
+      },
+      "answer": "ABC",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 6
+      }
+    },
+    {
+      "id": "p6-7",
+      "type": "multiple",
+      "stem": "《消费者权益保护法》中实行举证责任倒置，由 经营者承担有关瑕疵的举证责任的包括下列商品的 买卖（ ）。",
+      "options": {
+        "A": "机动车",
+        "B": "计算机",
+        "C": "电视机",
+        "D": "电冰箱、空调器、洗衣机等耐用商品",
+        "E": "装饰装修等服务"
+      },
+      "answer": "ABCDE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 7
+      }
+    },
+    {
+      "id": "p6-8",
+      "type": "judge",
+      "stem": "商业秘密之所以不要求具有实用性，是因为很多 时候即使是失败的数据也具有价值。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 8
+      }
+    },
+    {
+      "id": "p6-9",
+      "type": "judge",
+      "stem": "经营者提供商品或者服务有欺诈行为的，采用“假 一赔三”，但增加赔偿的金额不足五百元的，为五百 元。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 9
+      }
+    },
+    {
+      "id": "p6-10",
+      "type": "single",
+      "stem": "消费者购买了有瑕疵但并非危及人身安全的产 品，只可以向商家索赔，不可以向厂家索赔。 第七章 贷款的五级分类中，不列入不良资产范畴的是 （ ）。",
+      "options": {
+        "A": "对 次级",
+        "B": "错 关注",
+        "C": "损失",
+        "D": "可疑"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 10
+      }
+    },
+    {
+      "id": "p6-2",
+      "type": "single",
+      "stem": "作为四大AMC 之一的中国华融资产管理公司一 开始主要对应的是接收从（ ）剥离出来的不良资产。",
+      "options": {
+        "A": "工行",
+        "B": "农行",
+        "C": "中行",
+        "D": "建行"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 2
+      }
+    },
+    {
+      "id": "p6-3",
+      "type": "single",
+      "stem": "我国目前的四大资产管理公司不包括（ ）。",
+      "options": {
+        "A": "华融",
+        "B": "信达",
+        "C": "光大",
+        "D": "东方",
+        "E": "长城"
+      },
+      "answer": "C",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 6,
+        "number": 3
+      }
+    },
+    {
+      "id": "p7-4",
+      "type": "single",
+      "stem": "作为上个世纪九十年代末成立的四大AMC 之一， 中国信达资产管理公司一开始主要对应的是接收从 （ ）剥离出来的不良资产。",
+      "options": {
+        "A": "工行",
+        "B": "农行",
+        "C": "中行",
+        "D": "建行"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 4
+      }
+    },
+    {
+      "id": "p7-5",
+      "type": "multiple",
+      "stem": "张向阳向某银行贷款50 万元，期限为一年，徐 建斌提供保证担保，约定承担保证责任的期间和贷 款期间相同。某年1 月10 日，贷款到期，张向阳无 力归还。7 月18 日，该银行起诉徐建斌还款。下列 表述正确的是（ ）。",
+      "options": {
+        "A": "徐建斌需承担担保责任",
+        "B": "还款期限一过，徐建斌即无需承担担保责任",
+        "C": "徐建斌无需承担担保责任",
+        "D": "如果银行在贷款到期后的六个月内要求徐建斌承 担担保责任，徐建斌需担责"
+      },
+      "answer": "AD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 5
+      }
+    },
+    {
+      "id": "p7-6",
+      "type": "multiple",
+      "stem": "下列关于银行不良资产案件的特点，正确的有 （ ）：",
+      "options": {
+        "A": "借贷纠纷成为银行诉讼纠纷的主要类型",
+        "B": "多数借款合同、担保合同法律关系简单、明晰，因 此在诉讼过程中，诉讼双方当事人对基本问题争议 不大",
+        "C": "法院在认定银行业不良资产的案件时，不存在太大 的疑问，银行作为债权人的胜诉率极高",
+        "D": "打包拍卖转让不良资产是最好的处理方式",
+        "E": "银行不良资产案件得到执行的比率相对比较低"
+      },
+      "answer": "ABCE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 6
+      }
+    },
+    {
+      "id": "p7-7",
+      "type": "multiple",
+      "stem": "下列属于担保法规定的担保方式的有（ ）。",
+      "options": {
+        "A": "抵押",
+        "B": "质押",
+        "C": "留置",
+        "D": "定金",
+        "E": "保证",
+        "F": "违约金"
+      },
+      "answer": "ABCDEF",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 7
+      }
+    },
+    {
+      "id": "p7-8",
+      "type": "judge",
+      "stem": "抵押不转移物的占有，但所有的质押都必须转移 物的占有。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 8
+      }
+    },
+    {
+      "id": "p7-9",
+      "type": "judge",
+      "stem": "保证合同约定的保证期间早于或者等于主债务履 行期限的，视为没有约定，不再承担担保责任。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 9
+      }
+    },
+    {
+      "id": "p7-10",
+      "type": "single",
+      "stem": "以公司资产为本公司的股东或者其他个人债务 提供担保的，担保合同一律无效。 第八章 下列不属于流转税的有（ ）。",
+      "options": {
+        "A": "对 增值税",
+        "B": "错 消费税",
+        "C": "关税",
+        "D": "契税"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 10
+      }
+    },
+    {
+      "id": "p7-2",
+      "type": "single",
+      "stem": "下列不属于目的行为税的是（ ）。",
+      "options": {
+        "A": "印花税",
+        "B": "房产税",
+        "C": "屠宰税",
+        "D": "筵席税"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 2
+      }
+    },
+    {
+      "id": "p7-3",
+      "type": "single",
+      "stem": "增值税起源于（ ）。",
+      "options": {
+        "A": "法国",
+        "B": "英国",
+        "C": "美国",
+        "D": "德国"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 3
+      }
+    },
+    {
+      "id": "p7-4",
+      "type": "single",
+      "stem": "2019 年1 月开始实施的修订之后的《个人所得税 法》规定综合所得的免征额（减除额）是（ ）。",
+      "options": {
+        "A": "3500 元",
+        "B": "5000 元",
+        "C": "6000 元",
+        "D": "8000 元"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 7,
+        "number": 4
+      }
+    },
+    {
+      "id": "p8-5",
+      "type": "multiple",
+      "stem": "税具有以下几个特征：（ ）。",
+      "options": {
+        "A": "强制性",
+        "B": "无偿性",
+        "C": "固定性",
+        "D": "协调性"
+      },
+      "answer": "ABC",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 5
+      }
+    },
+    {
+      "id": "p8-6",
+      "type": "multiple",
+      "stem": "按照课税对象的性质，可以把税分为（ ）。",
+      "options": {
+        "A": "流转税",
+        "B": "所得税",
+        "C": "资源税",
+        "D": "财产税",
+        "E": "目的行为税"
+      },
+      "answer": "ABCDE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 6
+      }
+    },
+    {
+      "id": "p8-7",
+      "type": "multiple",
+      "stem": "下列属于虚开增值税专用发票的行为有（ ）。",
+      "options": {
+        "A": "没有货物购销或者没有提供或接受应税劳务而为 他人开具增值税专用发票",
+        "B": "没有货物购销或者没有提供或接受应税劳务而介 绍他人开具增值税专用发票",
+        "C": "有货物购销或者提供或接受了应税劳务让他人为 自己、介绍他人开具数量或者金额不实的增值税专 用发票",
+        "D": "进行了实际经营活动，但让他人为自己代开增值税 专用发票"
+      },
+      "answer": "ABCD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 7
+      }
+    },
+    {
+      "id": "p8-8",
+      "type": "judge",
+      "stem": "税，是指国家为了实现其职能，凭借政治权力， 按照法定标准，强制地、无偿地取得财政收入的一 种特定分配关系。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 8
+      }
+    },
+    {
+      "id": "p8-9",
+      "type": "judge",
+      "stem": "按计税依据分类，可分为直接税和间接税。按税 负能否转嫁分类，可分为从价税和从量税。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 9
+      }
+    },
+    {
+      "id": "p8-10",
+      "type": "single",
+      "stem": "税收是国家财政收入的最主要来源，也是国家 进行宏观调控的一个重要手段。 第九章 根据《劳动合同法》的规定，劳动合同期限三个 月以上不满一年的，试用期不得超过（ ）。",
+      "options": {
+        "A": "对 一个月",
+        "B": "错 两个月",
+        "C": "三个月",
+        "D": "六个月"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 10
+      }
+    },
+    {
+      "id": "p8-2",
+      "type": "single",
+      "stem": "劳动者在试用期的工资不得低于本单位相同岗位 最低档工资或者劳动合同约定工资的（ ），并不得 低于用人单位所在地的最低工资标准。",
+      "options": {
+        "A": "50%",
+        "B": "60%",
+        "C": "70%",
+        "D": "80%"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 2
+      }
+    },
+    {
+      "id": "p8-3",
+      "type": "single",
+      "stem": "下列关于劳动合同中的违约金的规定，正确的是 （ ）。",
+      "options": {
+        "A": "劳动合同约定违约金一律无效",
+        "B": "违约金不得超过用人单位提供的培训费用",
+        "C": "违约金可大于或等于用人单位提供的培训费用",
+        "D": "基于竞业禁止条款约定的违约金也是无效的"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 3
+      }
+    },
+    {
+      "id": "p8-4",
+      "type": "single",
+      "stem": "根据《劳动合同法》的规定，劳动合同期限一年 以上不满三年的，试用期不得超过（ ）。",
+      "options": {
+        "A": "一个月",
+        "B": "两个月",
+        "C": "三个月",
+        "D": "六个月"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 4
+      }
+    },
+    {
+      "id": "p8-5",
+      "type": "multiple",
+      "stem": "下列属于《劳动合同法》规定的劳动合同类型的 有（ ）。",
+      "options": {
+        "A": "固定期限劳动合同",
+        "B": "无固定期限劳动合同",
+        "C": "以完成一定工作任务为期限的劳动合同",
+        "D": "外包合同"
+      },
+      "answer": "ABC",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 5
+      }
+    },
+    {
+      "id": "p8-6",
+      "type": "multiple",
+      "stem": "下列关于劳动者的经济补偿金，正确的有（ ）。",
+      "options": {
+        "A": "按劳动者签订劳动合同的时间开始算，不满一年按 一年计算",
+        "B": "按每满一年支付一个月工资的标准支付",
+        "C": "六个月以上不满一年的，按一年计算",
+        "D": "不满六个月的，按半个月工资支付"
+      },
+      "answer": "ACD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 8,
+        "number": 6
+      }
+    },
+    {
+      "id": "p9-7",
+      "type": "multiple",
+      "stem": "《劳动合同法》劳动者有权提出订立无固定期限 劳动合同的情形包括（ ）。",
+      "options": {
+        "A": "劳动者在该用人单位连续工作满十年",
+        "B": "第二次签约的老职工",
+        "C": "用人单位初次实行劳动合同制度或者国有企业改 制重新订立劳动合同时，劳动者在该用人单位连续 工作满十年且距法定退休年龄不足五年",
+        "D": "连续订立二次固定期限劳动合同，且用人单位没有 法定解约理由的"
+      },
+      "answer": "ACD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 7
+      }
+    },
+    {
+      "id": "p9-8",
+      "type": "judge",
+      "stem": "用人单位超过一年未与劳动者签订书面劳动合同 的，视为订立无固定期限劳动合同。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 8
+      }
+    },
+    {
+      "id": "p9-9",
+      "type": "judge",
+      "stem": "同一用人单位与同一劳动者只能约定一次试用 期。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 9
+      }
+    },
+    {
+      "id": "p9-10",
+      "type": "single",
+      "stem": "以完成一定工作任务为期限的劳动合同或者劳 动合同期限不满六个月的，不得约定试用期。 第十章 下列争议中，可以适用《中华人民共和国仲裁法》 进行仲裁的是（ ）。",
+      "options": {
+        "A": "对 甲与其妻欲离婚，对财产分割产生争议",
+        "B": "错 乙因车祸去世，其子女因遗产继承产生争议",
+        "C": "丙与其所在单位对工资待遇产生争议",
+        "D": "丁因股权转让问题与其它投资人之间产生争议"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 10
+      }
+    },
+    {
+      "id": "p9-3",
+      "type": "single",
+      "stem": "下列解决纠纷的途径中，实行地域和级别管辖的 有（ ）。",
+      "options": {
+        "A": "协商",
+        "B": "调解",
+        "C": "仲裁",
+        "D": "诉讼"
+      },
+      "answer": "D",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 3
+      }
+    },
+    {
+      "id": "p9-4",
+      "type": "single",
+      "stem": "下列各项纠纷中，符合我国《仲裁法》规定可以 申请仲裁解决的是（ ）。",
+      "options": {
+        "A": "甲与乙离婚财产纠纷",
+        "B": "两家企业间的货物买卖合同纠纷",
+        "C": "兄弟姐妹之间的继承遗产纠纷",
+        "D": "劳动者与用人单位的劳动争议纠纷"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 4
+      }
+    },
+    {
+      "id": "p9-5",
+      "type": "multiple",
+      "stem": "甲乙双方签订一份买卖合同，合同中约定了仲裁 条款，内容为“甲乙双方一致同意，若履行本合同发 生任何争议，均应提交仲裁解决。”关于仲裁条款， 下列说法正确的有（ ）。",
+      "options": {
+        "A": "该仲裁条款有效，若发生争议，应提交仲裁解决， 不应向法院起诉",
+        "B": "除非双方签订关于仲裁的补充约定，否则无效",
+        "C": "仲裁条款未约定具体的仲裁机构，若未达成补充约 定，视为无仲裁协议",
+        "D": "有效的仲裁条款，不仅是仲裁机构受理案件的前 提，同时也排除了法院的管辖",
+        "E": "若一方当事人故意隐瞒了存在仲裁协议的情况，向 法院起诉，法院受理后，另一方当事人在答辩期内 未及时提出管辖权异议，但在庭审中提出管辖权异 议，法院将停止审理驳回诉讼"
+      },
+      "answer": "BCD",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 5
+      }
+    },
+    {
+      "id": "p9-6",
+      "type": "multiple",
+      "stem": "对上诉案件作如下处理，正确的有（ ）。",
+      "options": {
+        "A": "原判决认定事实清楚、适用法律正确的，判决驳回 上诉，维持原判",
+        "B": "原判决适用法律错误的，必须撤销原判，发回重审",
+        "C": "原判决认定事实错误或者认定事实不清、证据不足 的，可撤销原判决发回原审人民法院重审",
+        "D": "上述C 选项也可由二审法院查清事实后改判",
+        "E": "原判决违反法定程序，可能影响案件正确判决的， 裁定撤销原判决，发回重审"
+      },
+      "answer": "ACDE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 9,
+        "number": 6
+      }
+    },
+    {
+      "id": "p10-7",
+      "type": "multiple",
+      "stem": "经济仲裁与经济诉讼相比较，两者有明显的区别， 具体表现在以下几个方面（ ）。",
+      "options": {
+        "A": "法院具有法定的管辖权，仲裁机构无法定的管辖 权，所以必须在自愿的基础上进行",
+        "B": "当事人没有选择法官的权利，仲裁员则是由双方当 事人自己选定的",
+        "C": "仲裁比诉讼具有更大的灵活性，处理问题一般相对 较迅速及时",
+        "D": "法院一般公开进行审理，而仲裁一般都是秘密进行 的",
+        "E": "法院审理案件一般实行“两审终审制”，而仲裁实行 “一裁终局制”"
+      },
+      "answer": "ABCDE",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 10,
+        "number": 7
+      }
+    },
+    {
+      "id": "p10-8",
+      "type": "judge",
+      "stem": "作为主合同的货物买卖合同无效必然导致其中的 仲裁条款无效。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 10,
+        "number": 8
+      }
+    },
+    {
+      "id": "p10-9",
+      "type": "judge",
+      "stem": "如果主合同中约定了一个子虚乌有的不存在的仲 裁机构，则争议必须通过仲裁解决。",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "B",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 10,
+        "number": 9
+      }
+    },
+    {
+      "id": "p10-10",
+      "type": "judge",
+      "stem": "“原告就被告”是一审诉讼管辖的基本管辖原则， 但并非一审案件必须由被告所在地管辖。 智慧树知到《经济法理论与实务》见面课答案 见面课：公司法",
+      "options": {
+        "A": "对",
+        "B": "错"
+      },
+      "answer": "A",
+      "explanation": null,
+      "difficulty": null,
+      "source": {
+        "page": 10,
+        "number": 10
+      }
+    }
+  ]
+}
