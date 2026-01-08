@@ -321,7 +321,7 @@ function buildIssueUrl({ bank, meta, qid, q, state }) {
   return `${GITHUB_ISSUES_NEW_URL}?${params.toString()}`;
 }
 
-function renderQuestion(questionsById, state) {
+function renderQuestion(questionsById, state, bank, meta) {
   const activeIds = getActiveIds(state);
   const idx = getActiveIndex(state);
 
@@ -346,8 +346,9 @@ function renderQuestion(questionsById, state) {
     feedbackBtn.hidden = false;
     feedbackBtn.onclick = () => {
       try {
-        const url = buildIssueUrl({ bank: window.__currentBankForFeedback, meta: window.__metaForFeedback, qid, q, state });
-        window.open(url, '_blank', 'noopener');
+        const url = buildIssueUrl({ bank, meta, qid, q, state });
+        // Prefer same-tab navigation to avoid popup blockers in some browsers (e.g., mobile / in-app browsers).
+        window.location.assign(url);
       } catch (e) {
         console.error(e);
         alert('无法打开反馈链接，请查看控制台错误。');
@@ -794,7 +795,7 @@ async function main() {
 
   function rerenderQuiz() {
     renderProgress(meta, state);
-    renderQuestion(questionsById, state);
+    renderQuestion(questionsById, state, currentBank, meta);
   }
 
   function getCurrentQA() {
@@ -931,7 +932,6 @@ async function main() {
 
     showQuiz();
     currentBank = bank;
-    window.__currentBankForFeedback = currentBank;
     $('meta').textContent = `题库：${bank.name}`;
 
     const res = await fetch(`./${bank.questionsPath}`, { cache: 'no-store' });
@@ -942,7 +942,6 @@ async function main() {
 
     const data = await res.json();
     meta = data.meta || {};
-    window.__metaForFeedback = meta;
     const questions = data.questions || [];
 
     questionsById = {};
