@@ -330,6 +330,20 @@ body {
   background: #f3f4f6;
 }
 
+.btn-icon {
+  width: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon .icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
 .result {
   margin-top: 14px;
   padding: 12px;

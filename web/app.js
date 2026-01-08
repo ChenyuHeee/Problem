@@ -700,16 +700,24 @@ async function main() {
         .slice(0, 80);
 
       const dl = document.createElement('a');
-      dl.className = 'btn btn-secondary';
+      dl.className = 'btn btn-secondary btn-icon';
       if (b.sourcePdfPath) {
         dl.href = `./${b.sourcePdfPath}`;
         dl.download = `${safeName}.pdf`;
-        dl.textContent = '下载原题库';
+        dl.title = '下载原题库（PDF）';
+        dl.setAttribute('aria-label', '下载原题库（PDF）');
       } else {
         dl.href = `./${b.questionsPath}`;
         dl.download = `${safeName}.questions.json`;
-        dl.textContent = '下载题库';
+        dl.title = '下载题库（JSON）';
+        dl.setAttribute('aria-label', '下载题库（JSON）');
       }
+
+      dl.innerHTML =
+        '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">'
+        + '<path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42l2.3 2.3V4a1 1 0 0 1 1-1z"/>'
+        + '<path fill="currentColor" d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/>'
+        + '</svg>';
 
       const btn = document.createElement('button');
       btn.className = 'btn btn-primary';
