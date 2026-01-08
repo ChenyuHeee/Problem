@@ -112,6 +112,59 @@ function isValidState(state) {
   );
 }
 
+function mergeAnswerRecord(existingRec, incomingRec) {
+  if (!existingRec) return incomingRec;
+  if (!incomingRec) return existingRec;
+
+  const exWrong = existingRec.correct === false;
+  const inWrong = incomingRec.correct === false;
+
+  // Wrong union: if either side is wrong, keep it wrong.
+  if (exWrong || inWrong) {
+    const chosen = exWrong ? existingRec : incomingRec;
+    return {
+      response: chosen.response,
+      correct: false,
+      ts: Math.max(Number(existingRec.ts || 0), Number(incomingRec.ts || 0)) || Date.now(),
+    };
+  }
+
+  // Both are correct (or missing correct flags): prefer newer timestamp.
+  const exTs = Number(existingRec.ts || 0);
+  const inTs = Number(incomingRec.ts || 0);
+  return inTs >= exTs ? incomingRec : existingRec;
+}
+
+function mergeStates(existingState, incomingState) {
+  if (!isValidState(existingState)) return incomingState;
+  if (!isValidState(incomingState)) return existingState;
+
+  // Merge questionIds (keep existing order, then append new ones)
+  const mergedQuestionIds = Array.isArray(existingState.questionIds) ? [...existingState.questionIds] : [];
+  const seen = new Set(mergedQuestionIds);
+  for (const qid of incomingState.questionIds || []) {
+    if (!seen.has(qid)) {
+      mergedQuestionIds.push(qid);
+      seen.add(qid);
+    }
+  }
+
+  // Merge answers: union answered; if either wrong => wrong
+  const mergedAnswers = { ...(existingState.answers || {}) };
+  for (const [qid, inRec] of Object.entries(incomingState.answers || {})) {
+    mergedAnswers[qid] = mergeAnswerRecord(mergedAnswers[qid], inRec);
+  }
+
+  return {
+    version: 1,
+    mode: existingState.mode || incomingState.mode || 'all',
+    currentIndexAll: Number.isFinite(existingState.currentIndexAll) ? existingState.currentIndexAll : (incomingState.currentIndexAll || 0),
+    currentIndexWrong: Number.isFinite(existingState.currentIndexWrong) ? existingState.currentIndexWrong : (incomingState.currentIndexWrong || 0),
+    questionIds: mergedQuestionIds,
+    answers: mergedAnswers,
+  };
+}
+
 async function copyText(text) {
   const s = String(text ?? '');
   if (!s) return false;
@@ -750,7 +803,9 @@ async function main() {
       }
 
       try {
-        saveState(bankId, st);
+        const existing = loadState(bankId);
+        const merged = mergeStates(existing, st);
+        saveState(bankId, merged);
         imported++;
       } catch (e) {
         console.warn('Failed to import progress for bank', bankId, e);
