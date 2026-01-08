@@ -295,6 +295,12 @@ body {
   margin-top: 14px;
 }
 
+.feedback {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .btn {
   appearance: none;
   border: 1px solid #d1d5db;

@@ -1,5 +1,6 @@
 const BANKS_INDEX_URL = './banks/index.json';
 const STORAGE_PREFIX = 'quizProgress_v2:';
+const GITHUB_ISSUES_NEW_URL = 'https://github.com/ChenyuHeee/Problem/issues/new';
 
 function $(id) {
   return document.getElementById(id);
@@ -259,6 +260,65 @@ function renderEmpty(message) {
   const empty = $('emptyState');
   empty.hidden = false;
   empty.textContent = message;
+
+  const fb = $('feedbackBtn');
+  if (fb) fb.hidden = true;
+}
+
+function formatResponseForIssue(response) {
+  if (Array.isArray(response)) return response.join('');
+  if (response == null) return '';
+  return String(response);
+}
+
+function formatOptionsForIssue(options) {
+  if (!options || typeof options !== 'object') return '';
+  const labels = Object.keys(options);
+  labels.sort();
+  return labels.map((k) => `${k}. ${String(options[k] ?? '')}`.trim()).join('\n');
+}
+
+function buildIssueUrl({ bank, meta, qid, q, state }) {
+  const bankName = bank?.name || bank?.id || '';
+  const title = `[题目反馈] ${bankName} - ${qid}`;
+
+  const saved = state?.answers?.[qid] ?? null;
+  const myResponse = saved ? formatResponseForIssue(saved.response) : '';
+
+  const sourceParts = [];
+  if (q?.source?.page != null) sourceParts.push(`page=${q.source.page}`);
+  if (q?.source?.number != null) sourceParts.push(`no=${q.source.number}`);
+  const sourceText = sourceParts.length ? sourceParts.join(', ') : '';
+
+  const bodyLines = [
+    `题库：${bankName}`,
+    q?.meta?.source ? `题库来源：${q.meta.source}` : (meta?.source ? `题库来源：${meta.source}` : ''),
+    `题目ID：${qid}`,
+    q?.type ? `题型：${q.type}` : '',
+    sourceText ? `题目位置：${sourceText}` : '',
+    '',
+    '【题干】',
+    String(q?.stem ?? ''),
+    '',
+    q?.type === 'blank' ? '' : '【选项】',
+    q?.type === 'blank' ? '' : formatOptionsForIssue(q?.options),
+    '',
+    '【正确答案】',
+    String(q?.answer ?? ''),
+    '',
+    '【我的作答】',
+    myResponse || '（未作答）',
+    '',
+    '【问题描述】',
+    '请描述题干/选项/答案/解析哪里有误，或哪里不清楚。',
+  ].filter((x) => x !== '');
+
+  const body = bodyLines.join('\n');
+
+  const params = new URLSearchParams();
+  params.set('title', title);
+  params.set('body', body);
+  return `${GITHUB_ISSUES_NEW_URL}?${params.toString()}`;
 }
 
 function renderQuestion(questionsById, state) {
@@ -279,6 +339,20 @@ function renderQuestion(questionsById, state) {
   if (!q) {
     renderEmpty('题目加载异常：找不到题目。');
     return;
+  }
+
+  const feedbackBtn = $('feedbackBtn');
+  if (feedbackBtn) {
+    feedbackBtn.hidden = false;
+    feedbackBtn.onclick = () => {
+      try {
+        const url = buildIssueUrl({ bank: window.__currentBankForFeedback, meta: window.__metaForFeedback, qid, q, state });
+        window.open(url, '_blank', 'noopener');
+      } catch (e) {
+        console.error(e);
+        alert('无法打开反馈链接，请查看控制台错误。');
+      }
+    };
   }
 
   // Frontend fallback: some extracted items may have options embedded in stem.
@@ -857,6 +931,7 @@ async function main() {
 
     showQuiz();
     currentBank = bank;
+    window.__currentBankForFeedback = currentBank;
     $('meta').textContent = `题库：${bank.name}`;
 
     const res = await fetch(`./${bank.questionsPath}`, { cache: 'no-store' });
@@ -867,6 +942,7 @@ async function main() {
 
     const data = await res.json();
     meta = data.meta || {};
+    window.__metaForFeedback = meta;
     const questions = data.questions || [];
 
     questionsById = {};
