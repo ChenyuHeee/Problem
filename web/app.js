@@ -73,6 +73,74 @@ function storageKeys(bankId) {
   return { primary: base, backup: `${base}__backup` };
 }
 
+function safeJsonStringify(obj) {
+  try {
+    return JSON.stringify(obj);
+  } catch {
+    return '';
+  }
+}
+
+function getAllSavedBankStates() {
+  const out = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+      if (!key.startsWith(STORAGE_PREFIX)) continue;
+      if (key.endsWith('__backup')) continue;
+
+      const bankId = key.slice(STORAGE_PREFIX.length);
+      const st = loadState(bankId);
+      if (st) out[bankId] = st;
+    }
+  } catch (e) {
+    console.warn('Failed to enumerate localStorage for export', e);
+  }
+  return out;
+}
+
+function isValidState(state) {
+  return !!(
+    state &&
+    typeof state === 'object' &&
+    state.version === 1 &&
+    Array.isArray(state.questionIds) &&
+    state.answers &&
+    typeof state.answers === 'object'
+  );
+}
+
+async function copyText(text) {
+  const s = String(text ?? '');
+  if (!s) return false;
+
+  if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+    try {
+      await navigator.clipboard.writeText(s);
+      return true;
+    } catch {
+      // Fallback below
+    }
+  }
+
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = s;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
 function loadState(bankId) {
   const tryParse = (raw) => {
     if (!raw) return null;
@@ -388,6 +456,12 @@ async function main() {
   const banksList = $('banksList');
   const homeEmpty = $('homeEmpty');
 
+  const exportProgressBtn = $('exportProgressBtn');
+  const importProgressBtn = $('importProgressBtn');
+  const exportText = $('exportText');
+  const importText = $('importText');
+  const transferMsg = $('transferMsg');
+
   const backHomeBtn = $('backHomeBtn');
   const toggleModeBtn = $('toggleModeBtn');
   const resetBtn = $('resetBtn');
@@ -519,6 +593,123 @@ async function main() {
   }
 
   const banks = banksIndex.banks || [];
+
+  function setTransferMsg(msg) {
+    if (!transferMsg) return;
+    transferMsg.textContent = msg || '';
+  }
+
+  function buildExportPayload() {
+    const statesByBankId = getAllSavedBankStates();
+
+    const namesById = {};
+    for (const b of banks) namesById[b.id] = b.name;
+
+    const payload = {
+      schema: 'quiz-progress-export',
+      schemaVersion: 1,
+      exportedAt: Date.now(),
+      storagePrefix: STORAGE_PREFIX,
+      banks: {},
+    };
+
+    for (const [bankId, st] of Object.entries(statesByBankId)) {
+      if (!isValidState(st)) continue;
+      payload.banks[bankId] = {
+        name: namesById[bankId] || '',
+        state: st,
+      };
+    }
+    return payload;
+  }
+
+  function parseImportPayload(raw) {
+    const s = String(raw ?? '').trim();
+    if (!s) return null;
+    let parsed;
+    try {
+      parsed = JSON.parse(s);
+    } catch {
+      return null;
+    }
+
+    // v1 canonical format
+    if (parsed && parsed.schema === 'quiz-progress-export' && parsed.schemaVersion === 1 && parsed.banks) {
+      return parsed;
+    }
+
+    // Compatibility: allow plain map { [bankId]: state }
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      const banksMap = {};
+      for (const [bankId, maybeState] of Object.entries(parsed)) {
+        if (isValidState(maybeState)) {
+          banksMap[bankId] = { name: '', state: maybeState };
+        }
+      }
+      if (Object.keys(banksMap).length > 0) {
+        return {
+          schema: 'quiz-progress-export',
+          schemaVersion: 1,
+          exportedAt: 0,
+          storagePrefix: STORAGE_PREFIX,
+          banks: banksMap,
+        };
+      }
+    }
+
+    return null;
+  }
+
+  function importProgressFromPayload(payload) {
+    const banksMap = payload?.banks && typeof payload.banks === 'object' ? payload.banks : null;
+    if (!banksMap) return { imported: 0, skipped: 0 };
+
+    let imported = 0;
+    let skipped = 0;
+
+    for (const [bankId, entry] of Object.entries(banksMap)) {
+      const st = entry && typeof entry === 'object' ? entry.state : null;
+      if (!isValidState(st)) {
+        skipped++;
+        continue;
+      }
+
+      try {
+        saveState(bankId, st);
+        imported++;
+      } catch (e) {
+        console.warn('Failed to import progress for bank', bankId, e);
+        skipped++;
+      }
+    }
+
+    return { imported, skipped };
+  }
+
+  if (exportProgressBtn && exportText) {
+    exportProgressBtn.addEventListener('click', async () => {
+      setTransferMsg('');
+      const payload = buildExportPayload();
+      const text = safeJsonStringify(payload);
+      exportText.value = text;
+      const ok = await copyText(text);
+      setTransferMsg(ok ? '已复制到剪贴板。' : '已生成文本，请手动复制。');
+    });
+  }
+
+  if (importProgressBtn && importText) {
+    importProgressBtn.addEventListener('click', () => {
+      setTransferMsg('');
+      const payload = parseImportPayload(importText.value);
+      if (!payload) {
+        setTransferMsg('导入失败：文本格式不正确。');
+        return;
+      }
+      const { imported, skipped } = importProgressFromPayload(payload);
+      renderHomeList(banks);
+      setTransferMsg(`已导入 ${imported} 个题库进度（跳过 ${skipped} 个）。`);
+    });
+  }
 
   // Quiz runtime vars (for current bank)
   let currentBank = null;

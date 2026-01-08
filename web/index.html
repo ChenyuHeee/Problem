@@ -30,6 +30,25 @@
 
           <div id="banksList" class="banks"></div>
 
+          <section class="transfer" aria-label="进度迁移">
+            <div class="transfer-title">进度迁移（跨设备）</div>
+            <div class="transfer-sub">导出后复制文本，在另一台设备粘贴即可导入。不会影响未导入题库的进度。</div>
+
+            <div class="transfer-actions">
+              <button id="exportProgressBtn" class="btn btn-primary" type="button">复制进度文本</button>
+              <span id="transferMsg" class="transfer-msg" role="status" aria-live="polite"></span>
+            </div>
+
+            <label class="transfer-label" for="exportText">导出文本</label>
+            <textarea id="exportText" class="textarea" rows="4" readonly placeholder="点击“复制进度文本”生成"></textarea>
+
+            <label class="transfer-label" for="importText">导入文本</label>
+            <textarea id="importText" class="textarea" rows="4" placeholder="把另一台设备复制的文本粘贴到这里"></textarea>
+            <div class="transfer-actions">
+              <button id="importProgressBtn" class="btn" type="button">导入进度</button>
+            </div>
+          </section>
+
           <div id="homeEmpty" class="empty" hidden></div>
         </section>
 

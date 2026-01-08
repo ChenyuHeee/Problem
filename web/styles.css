@@ -146,6 +146,59 @@ body {
   align-items: center;
 }
 
+.transfer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.transfer-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.transfer-sub {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.transfer-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.transfer-msg {
+  font-size: 12px;
+  color: #374151;
+}
+
+.transfer-label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.textarea[readonly] {
+  background: #f9fafb;
+}
+
 .mode-banner {
   padding: 10px 12px;
   border: 1px solid #fde68a;
